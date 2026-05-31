@@ -1,0 +1,9 @@
+{
+  "js/ts.validate.enabled": true,
+  "eslint.enable": true,
+  "eslint.run": "onType",
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "errorLens.fontSize": "12px",
+  "errorLens.errorMessageBackground": "#2f1b1b",
+  "errorLens.warningMessageBackground": "#2f2415"
+}

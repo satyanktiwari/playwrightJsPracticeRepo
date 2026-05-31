@@ -1,0 +1,5 @@
+{"compilerOptions": {
+    "checkJs": false,
+     "module": "nodenext",
+    "types": ["node","@playwright/test"]
+}}
