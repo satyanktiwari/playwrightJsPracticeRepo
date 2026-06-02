@@ -118,6 +118,14 @@ export default class TablesPracticeOne {
 
 
 
+    /**
+     * Should be called after the sorting is initiated using the clickHeader function
+     *
+     * @param {Array} beforeSortData
+     * @param {number} tableNumber
+     * @param {String} columnName
+     * @memberof TablesPracticeOne
+     */
     async waitForTableUpdate(beforeSortData, tableNumber, columnName){
         await expect.poll(async()=>{
             let sortedColumnData = await this.getColumnData(tableNumber, columnName)

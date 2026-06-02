@@ -87,4 +87,35 @@ export default class CommonFunctions {
         return trimmedText;
     }
 
+    /**
+     * - Validates if parameters are needed for the function
+     * - Throws error if found missing
+     *
+     * @param {*} params
+     * @memberof CommonFunctions
+     */
+    requireParams(params) {
+    for (const [name, value] of Object.entries(params)) {
+        if (
+            value == null ||
+            (typeof value === "string" && !value.trim())
+        ) {
+            throw new Error(`${name} is required`);
+        }
+    }
+}
+
+    
+
+}
+
+export function requireParams(params) {
+    for (const [name, value] of Object.entries(params)) {
+        if (
+            value == null ||
+            (typeof value === "string" && !value.trim())
+        ) {
+            throw new Error(`${name} is required`);
+        }
+    }
 }

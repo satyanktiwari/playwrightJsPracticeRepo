@@ -23,7 +23,7 @@ export const test= base.extend({
             context = await browser.newContext();
         }
         await use(context);
-        await context.close
+        await context.close()
         
     },
     actions:async({page},use)=>{
