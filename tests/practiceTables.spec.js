@@ -17,7 +17,7 @@ test.describe('Test the tablesPage using the latest version of test',()=>{
         console.log(`tc 01 passed`);
     })
 
-    test.only('validate sorting',async()=>{
+    test('validate sorting',async()=>{
         console.log(`starting`);
         const column = ['Last Name', 'First Name', 'Email', 'Due']
         // await tablesPage.validateTableHeaderSorting(1,'Due','asc');
