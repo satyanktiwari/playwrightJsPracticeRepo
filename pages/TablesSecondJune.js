@@ -1,4 +1,5 @@
 import {expect} from '../fixtures/baseFixture.js';
+import {getSortedData} from '../utils/sortUtilsPracticeTwo.js'
 
 
 export class TablesSecondJune{
@@ -81,5 +82,30 @@ export class TablesSecondJune{
             columnData.add(trimmedCellText);
         }
         return columnData;
+    }
+
+    async waitForTableToUpdate(beforeSortData, tableNumber, columnName){
+        await this.actions.requireParams({beforeSortData, tableNumber, columnName});
+        await expect.poll(async()=>{
+            let afterSortData = await this.getColumnData(tableNumber, columnName);
+            return afterSortData;
+        },{
+            timeout:5000,
+            interval:500
+
+        }).not.toBe(beforeSortData);
+
+    }
+
+
+    async validateSorting(tableNumber, columnName, order='asc'){
+        await this.actions.requireParams({tableNumber, columnName, order})
+        let beforeSortData = await this.getColumnData(tableNumber, columnName);
+        await this.clickHeader(tableNumber, columnName);
+        await this.waitForTableToUpdate(beforeSortData, tableNumber,columnName);
+        let afterSortData = await this.getColumnData(tableNumber, columnName);
+        let expectedSortData = await getSortedData(beforeSortData, order)
+        expect(afterSortData).toEqual(expectedSortData);
+        
     }
 }
