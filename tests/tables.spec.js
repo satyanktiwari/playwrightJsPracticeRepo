@@ -91,7 +91,7 @@ test.describe('Validate tables', () => {
    })
 // removed testData argument as it is not being used in the test
 
-   test.only('03 - validate table one', async () => {
+   test('03 - validate table one', async () => {
       await test.step('01 - Validate ascending sort on Last name column', async () => {
          // await tablesPage.sortColumnAndValidate('Last Name', 'asc');
          const columns = ['Last Name', 'First Name', 'Email', 'Due'];
