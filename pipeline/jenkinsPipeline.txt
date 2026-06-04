@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_PATH = 'C:\\Satyank\\Automation\\vscode\\JS\\04MayThirteen'
+        "_comment": "Change the directory to your local project directory",
+        PROJECT_PATH = 'C:\\Satyank\\Automation\\vscode\\JS\\05MaySeventeenth'
     }
 
     stages {
