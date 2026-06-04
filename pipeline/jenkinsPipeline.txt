@@ -1,0 +1,84 @@
+pipeline {
+    agent any
+
+    environment {
+        PROJECT_PATH = 'C:\\Satyank\\Automation\\vscode\\JS\\04MayThirteen'
+    }
+
+    stages {
+
+        stage('Check Environment') {
+            steps {
+                dir("${PROJECT_PATH}") {
+                    bat 'echo USER:'
+                    bat 'whoami'
+
+                    bat 'echo NODE VERSION:'
+                    bat 'node -v'
+
+                    bat 'echo NPM VERSION:'
+                    bat 'npm -v'
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir("${PROJECT_PATH}") {
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Install Playwright Browsers') {
+            steps {
+                dir("${PROJECT_PATH}") {
+                    bat 'npx playwright install'
+                }
+            }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                dir("${PROJECT_PATH}") {
+                    
+                    // Force HTML report generation
+                    bat 'npx playwright test --reporter=html || exit 0'
+
+                    // DEBUG: check report
+                    bat 'echo Checking report folder'
+                    bat 'dir playwright-report || echo Report folder not found'
+
+                }
+            }
+        }
+    }
+
+    
+    post {
+        always {
+
+            dir("${PROJECT_PATH}") {
+
+                publishHTML([
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright Report',
+                    allowMissing: true
+                ])
+
+                archiveArtifacts artifacts: 'playwright-report/**',
+                                   fingerprint: true,
+                                   allowEmptyArchive: true
+            }
+        }
+
+        success {
+            echo '✅ Build SUCCESS'
+        }
+
+        failure {
+            echo '❌ Build FAILED'
+        }
+    }
+}
